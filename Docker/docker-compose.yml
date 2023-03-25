@@ -10,9 +10,8 @@ services:
       - 9001:80
     volumes:
       - ../www:/var/www
-    depends_on:
-      - purchdb
-    command: 
+ #   depends_on:
+ #     - db
   db:
     container_name: purchdb
     image: mariadb
@@ -28,7 +27,7 @@ services:
     volumes:
       - ../db:/var/lib/mysql
       - ../sql:/sql
-    command: 'mysql -e "source /sql/purch.sql;" -u$MARIADB_USER -p$MARIADB_PASSWORD'
+#    command: 'mysql -h 127.0.0.1 -e "source /sql/purch.sql;" -u$MARIADB_DATABASE -p$MRIADB_PASSWORD'
   adminer:
     container_name: adminer
     image: adminer
