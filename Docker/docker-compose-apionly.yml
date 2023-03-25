@@ -4,7 +4,7 @@ services:
     name: purchapi
     build: .
     environment:
-      - DATABASE: 127.0.0.1
+      DATABASE: 127.0.0.1
     ports:
       - "9001:80"
     volumes:

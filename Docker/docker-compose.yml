@@ -4,7 +4,7 @@ services:
     container_name: purchapi
     build: .
     environment:
-      - DATABASE_HOST: purchdb
+      DATABASE_HOST: purchdb
     ports:
       - "9001:80"
     volumes:
