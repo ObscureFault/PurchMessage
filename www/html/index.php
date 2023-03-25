@@ -1,28 +1,32 @@
 <?php
-require '/var/external/flight/flight/Flight.php';
-require '../lib/PurchMessage.class.php';
+  require '/var/external/flight/flight/Flight.php';
+  require '../lib/PurchMessage.class.php';
 
 
-// New Class that does all the actual work
-$Purch = new();
+  // New Class that does all the actual work
+  $Purch = new PurchMessage();
 
-/*
-  /
-*/
-Flight::route('GET /PURCH/@id', function($id)
-{
-  print "aaaaaaaaaaaa";
+  /*
+    /
+  */
+  Flight::route('GET /PURCH/@id', function($id)
+  {
+    print "<h1>aaaaaaaaaaaa</h1>";
 
-//  $Purch->getPurchMessage($id);
-
-
-});
+  //  $Purch->getPurchMessage($id);
 
 
+  });
 
-Flight::route('POST /', function(){
-  //  echo 'I received a POST request.';
-});
+
+
+  Flight::route('POST /', function()
+  {
+    
+
+
+
+  });
 
 
 
