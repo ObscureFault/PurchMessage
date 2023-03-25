@@ -8,7 +8,7 @@
 
 function load_config()
 {
-  $config_file = '../../config/config.yaml';
+  $config_file = '/var/www/config/config.yaml';
   return yaml_parse_file($config_file);
 
 } 
