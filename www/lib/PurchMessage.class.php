@@ -14,7 +14,7 @@ class PurchMessage
 
     }
 
-    public function addMessage($)
+    public function addMessage($name,$msg)
     {
 
 
