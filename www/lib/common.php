@@ -1,8 +1,17 @@
 <?php
 //VARS ???
 
-  $GLOBALS[DB_USER] = 'purch'; 
-  $GLOBALS[DB_PASS] = 'purch'; 
+  $GLOBALS['DB_USER'] = 'purch'; 
+  $GLOBALS['DB_PASS'] = 'purch'; 
+
+
+
+function load_config()
+{
+  $config_file = '../../config/config.yaml';
+  return yaml_parse_file($config_file);
+
+} 
 
 
 function elog($msg)

@@ -3,28 +3,35 @@ services:
   app:
     container_name: purchapi
     build: .
+    restart: unless-stopped
     environment:
       DATABASE_HOST: purchdb
     ports:
-      - "9001:80"
+      - 9001:80
     volumes:
       - ../www:/var/www
     depends_on:
-      - db
+      - purchdb
+    command: 
   db:
     container_name: purchdb
     image: mariadb
-    restart: always
+    restart: unless-stopped
+    ports:
+      - 3306:3306
     environment:
+      MARIADB_ROOT_HOST: '%'
       MARIADB_ROOT_PASSWORD: example
-      MARIADB_DATABASE: purchmsg
       MARIADB_USER: purch
-      MARIADB_PASSWROD: purch
+      MARIADB_PASSWORD: purch
+      MARIADB_DATABASE: purchmsg
     volumes:
       - ../db:/var/lib/mysql
+      - ../sql:/sql
+    command: 'mysql -e "source /sql/purch.sql;" -u$MARIADB_USER -p$MARIADB_PASSWORD'
   adminer:
     container_name: adminer
     image: adminer
-    restart: always
+    restart: unless-stopped
     ports:
       - 8080:8080

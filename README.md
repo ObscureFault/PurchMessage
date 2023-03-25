@@ -10,4 +10,3 @@ Goal
       -- filtered 
     search in messages for text
 
-    

@@ -1,0 +1,4 @@
+database:
+    hostname: purchdb
+    username: purch
+    password: purch
