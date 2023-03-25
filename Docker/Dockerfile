@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get install -y imagemagick imagemagick-doc 
 RUN apt-get install -y php8.2-pdo-mysql php8.2-yaml  php8.0-imagick
 
-MKDIR /var/www/lib
-CD /var/www/lib
+RUN mkdir -p /var/www/lib/
+CD /var/www/lib/
 RUN git clone https://github.com/mikecao/flight.git
