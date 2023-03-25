@@ -20,9 +20,10 @@
 
 
 
-  Flight::route('POST /', function()
+  Flight::route('POST /NewPURCH', function()
   {
-    
+    $request = Flight::request();
+    print  $request->data();
 
 
 
