@@ -25,22 +25,14 @@
 
 
 
-  Flight::route('POST /PURCH/New/', function()
+  Flight::route('POST /PurchNew/', function()
   {
     $purch = new PurchMessage();
     $_POST = (array) json_decode(urldecode(file_get_contents("php://input")));
     $purch->addMessage($_POST);
   });
 
-  Flight::route('POST /PURCH/Response', function()
-  {
-    $purch = new PurchMessage();
-    $_POST = (array) json_decode(urldecode(file_get_contents("php://input")));
-    $purch->addMessage($_POST);
-  });
-
-
-  Flight::route('POST /PURCH/Response', function()
+  Flight::route('POST /PurchResponse/', function()
   {
     $purch = new PurchMessage();
     $_POST = (array) json_decode(urldecode(file_get_contents("php://input")));
@@ -48,6 +40,22 @@
   });
 
 
+
+  Flight::route('POST /PurchActivate', function()
+  {
+    $purch = new PurchMessage();
+    $res = array('STATUS' => $purch->setActive() );
+
+    Flight::json($res);
+  });
+
+  Flight::route('POST /PurchDeactivate', function()
+  {
+    $purch = new PurchMessage();
+    $res = array('STATUS' => $purch->deactivate() );
+
+    Flight::json($res);
+  });
 
 
 
