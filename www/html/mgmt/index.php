@@ -31,7 +31,7 @@
     $(document).ready(function() {
 
       // Define the URL to request JSON data from
-      var url = "http://192.168.20.24:9001/";
+      var url = "http://192.168.20.24:9001/ReplyRequired/";
 
       // Handle the button click event
       $("#get-data-btn").click(function() {
@@ -53,7 +53,7 @@
 
               // Create a new box for the item and add it to the column
               var box = $("<div>");
-              box.html("<h2>" + item.title + "</h2><p>" + item.body + "</p>");
+              box.html("<h2>" + item.NAME + "</h2><p>" + item.MESSAGE + "</p>");
               column.append(box);
             }
           }
