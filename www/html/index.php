@@ -20,9 +20,9 @@
   Flight::route('POST /NewPURCH', function()
   {
     $request = Flight::request();
-    if ( is_set($request->data) )
+    if ( isset($request->data) )
     {
-      $Purch->assMessage($request->data);
+      $Purch->addMessage($request->data);
     }
 
   });

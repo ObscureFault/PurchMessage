@@ -11,14 +11,13 @@ class PurchMessage
     public function __construct()
     {
       $config  = load_config();  
-print_r($config)
+print_r($config);
       try {
-//        $this->db = new PDO("mysql:host=$confg->hostname;dbname=$dbname", $username, $password);
-
+        $this->db = new PDO("mysql:host=".$config['database']['hostname'].";dbname=".$config['database']['dbame'], $config['database']['username'], $config['database']['password']);
+  
+      } catch (PDOException $pe) { 
+       
       }
- 
-      //Db connect
-
     }
 
     public function addMessage($data)
