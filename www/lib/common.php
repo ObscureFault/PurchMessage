@@ -29,7 +29,6 @@ function elog($msg)
     $str = $msg;
   }
 
-  
-  error_log(0,$str);
+  error_log($str,0);
 }
 ?>

@@ -81,19 +81,17 @@ class PurchMessage
       */
     public function replyRequired($recCount=20)
     {
-      $res = array();
-
       $sql = "SELECT PURCH_ID, NAME, MESSAGE, PURCHASE_COUNT,PURCHASE_SUMMARY,PURCHASE_IMAGE_URL ";
       $sql .= "FROM PURCH_MSG,PURCH_ACTIVE WHERE PURCH_ACTIVE.ACTIVE = 1 AND PURCH_MSG.CREATED_STAMP >= PURCH_ACTIVE.ACTIVE_STAMP ";
       $sql .= "AND RESPONSE_STAMP is null AND ONSCREEN_STAMP is null AND CURATED_COMPLETE_STAMP is null";
- 
+
+      $res = array();
       try {
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
-        while ($row = $stmt->fetch()) 
+        while ($row = $stmt->fetch())
         {
-          $res = $row['ACTIVE']; 
-          break;
+          array_push($res,$row);
         }
       } catch (Exception $e) {
         print_r($e);
@@ -102,8 +100,6 @@ class PurchMessage
 
     }
 
-    
-    
 
     /*
       return the URL, message and response
