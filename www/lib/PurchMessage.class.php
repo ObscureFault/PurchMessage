@@ -8,7 +8,7 @@ class PurchMessage
     private $_db;
 
     private $_newFields = array("NAME", "MESSAGE","PURCHASE_COUNT","PURCHASE_SUMMARY","PURCHASE_IMAGE_URL");
- 
+
     /*
       Construct
       Connect to DB
@@ -26,7 +26,7 @@ class PurchMessage
     }
 
 
-    
+
     /*
       New Message from Customer
       Save to DB
@@ -48,7 +48,7 @@ class PurchMessage
         $stmt = $this->_db->prepare($sql);
         $stmt->execute($data);
         $res = $stmt->rowCount();
- 
+
       } catch (Exception $e) {
         print_r($e);
       }
@@ -65,7 +65,7 @@ class PurchMessage
         if ( $k != 'PURCH_ID' && $k != 'RESPONSE')
           unset($data[$k]);
       }
-      
+
       $sql = "UPDATE PURCH_MSG SET RESPONSE = :RESPONSE, RESPONSE_STAMP = NOW() WHERE PURCH_ID = :PURCH_ID";
       $res = 0;
       try {
@@ -80,7 +80,7 @@ class PurchMessage
 
     /*
       return the ID, URL, message  after start date
-      List of new messages to be reviewed 
+      List of new messages to be reviewed
       */
     public function replyRequired($recCount=20)
     {
@@ -111,13 +111,49 @@ class PurchMessage
     */
     public function nextForDisplay()
     {
+      if ( !$this->getActive() )
+        return 0;
 
+      $sql = "SELECT PURCH_ID, NAME, MESSAGE, RESPONSE, PURCHASE_COUNT,PURCHASE_SUMMARY,PURCHASE_IMAGE_URL ";
+      $sql .= "FROM PURCH_MSG,PURCH_ACTIVE WHERE PURCH_ACTIVE.ACTIVE = 1 AND PURCH_MSG.CREATED_STAMP >= PURCH_ACTIVE.ACTIVE_STAMP ";
+      $sql .= "AND RESPONSE_STAMP is not null AND ONSCREEN_STAMP is null AND CURATED_COMPLETE_STAMP is null ";
+      $sql .= "ORDER BY CREATED_STAMP asc LIMIT 1" ;
 
-
+      $res = array();
+      try {
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+        while ($row = $stmt->fetch())
+        {
+          array_push($res,$row);
+        }
+      } catch (Exception $e) {
+        print_r($e);
+      }
+      return $res;
     }
 
+    /*
+      Save Response to Message
+    */
+    public function updateDisplayed($id)
+    {
+      if ( !is_numeric($id) )
+        return 0;
 
+      $data = array(PURCH_ID => $id);
 
+      $sql = "UPDATE PURCH_MSG SET ONSCREEN_STAMP = NOW() WHERE PURCH_ID = :PURCH_ID";
+      $res = 0;
+      try {
+        $stmt= $this->_db->prepare($sql);
+        $stmt->execute($data);
+        $res = $stmt->rowCount();
+      } catch (Exception $e) {
+        print_r($e);
+      }
+      return $res;
+    }
 
 
 
@@ -139,9 +175,9 @@ class PurchMessage
       try {
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
-        while ($row = $stmt->fetch()) 
+        while ($row = $stmt->fetch())
         {
-          $res = $row['ACTIVE']; 
+          $res = $row['ACTIVE'];
           break;
         }
       } catch (Exception $e) {
@@ -162,7 +198,7 @@ class PurchMessage
       try {
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
-        $res = $stmt->rowCount(); 
+        $res = $stmt->rowCount();
       } catch (Exception $e) {
         print_r($e);
       }

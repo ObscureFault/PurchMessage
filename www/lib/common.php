@@ -1,8 +1,8 @@
 <?php
 //VARS ???
 
-  $GLOBALS['DB_USER'] = 'purch'; 
-  $GLOBALS['DB_PASS'] = 'purch'; 
+  $GLOBALS['DB_USER'] = 'purch';
+  $GLOBALS['DB_PASS'] = 'purch';
 
 
 
@@ -11,7 +11,7 @@ function load_config()
   $config_file = '/var/www/config/config.yaml';
   return yaml_parse_file($config_file);
 
-} 
+}
 
 
 function elog($msg)
@@ -22,7 +22,7 @@ function elog($msg)
     ob_start();
     print_r($msg);
     $str = ob_get_contents();
-    ob_end_clean(); 
+    ob_end_clean();
   }
   else
   {

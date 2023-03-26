@@ -13,7 +13,7 @@
   //  $Purch->getPurchMessage($id);
 
   });
-  
+
   Flight::route('POST /PURCH/New/', function()
   {
     $purch = new PurchMessage();
@@ -46,9 +46,32 @@
     $res = $purch->ReplyRequired();
     Flight::json($res);
   });
-  
 
 
+
+/*
+Display Functions
+*/
+  Flight::route('GET /PurchDisplayNext/', function()
+  {
+    $purch = new PurchMessage();
+    $res = $purch->nextForDisplay();
+    Flight::json($res);
+  });
+
+  Flight::route('GET /PurchDisplayUpdate/@id', function($id)
+  {
+    $purch = new PurchMessage();
+    $res = array(STATUS => $purch->updateDisplayed($id) );
+
+    Flight::json($res);
+  });
+
+
+
+/*
+Activation Functions
+*/
 
 
 
