@@ -22,7 +22,7 @@
       id: 'RESPONSE',
       name: 'RESPONSE',
       _id: item.PURCH_ID
-    .attr("type", "text");
+        });
 
     
     var submitBtn = $("<button>").text("Submit").click(function() {
@@ -41,7 +41,10 @@
     });
     box.append(id, name, msg, input, submitBtn);
     return box;
-  }
+    
+  };
+
+
   </script>
 
   <style>
