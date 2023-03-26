@@ -53,7 +53,7 @@
 
 
 
-  Flight::route('POST /PurchActivate', function()
+  Flight::route('GET /PurchActivate', function()
   {
     $purch = new PurchMessage();
     $res = array('STATUS' => $purch->setActive() );
@@ -61,7 +61,7 @@
     Flight::json($res);
   });
 
-  Flight::route('POST /PurchDeactivate', function()
+  Flight::route('GET /PurchDeactivate', function()
   {
     $purch = new PurchMessage();
     $res = array('STATUS' => $purch->deactivate() );
