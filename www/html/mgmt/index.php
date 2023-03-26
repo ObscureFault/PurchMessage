@@ -24,9 +24,9 @@
       _id: item.PURCH_ID
         });
 
-    
     var submitBtn = $("<button>").text("Submit").click(function() {
       var postData = { RESPONSE: input.val(), PURCH_ID: input.attr('_id') };
+alert(postData);
       $.ajax({
         url: "http://192.168.20.24:9001/PurchResponse/",
         type: "POST",
@@ -41,7 +41,7 @@
     });
     box.append(id, name, msg, input, submitBtn);
     return box;
-    
+
   };
 
 

@@ -36,7 +36,7 @@
   {
     $purch = new PurchMessage();
     $_POST = (array) json_decode(urldecode(file_get_contents("php://input")));
-    $purch->addMessage($_POST);
+    $purch->updateResponse($_POST);
   });
 
 

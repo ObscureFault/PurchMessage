@@ -58,10 +58,13 @@ class PurchMessage
     /*
       Save Response to Message
     */
-    public function updateResponse($id, $resonseText)
+    public function updateResponse($data)
     {
-      //validate fields are correct
-      $data = array(PURCH_ID => $id, RESPONSE => $resonseText);
+      foreach ($data as $k => $v)
+      {
+        if ( $k != 'PURCH_ID' && $k != 'RESPONSE')
+          unset($data[$k]);
+      }
       
       $sql = "UPDATE PURCH_MSG SET RESPONSE = :RESPONSE, RESPONSE_STAMP = NOW() WHERE PURCH_ID = :PURCH_ID";
       $res = 0;
@@ -83,7 +86,8 @@ class PurchMessage
     {
       $sql = "SELECT PURCH_ID, NAME, MESSAGE, PURCHASE_COUNT,PURCHASE_SUMMARY,PURCHASE_IMAGE_URL ";
       $sql .= "FROM PURCH_MSG,PURCH_ACTIVE WHERE PURCH_ACTIVE.ACTIVE = 1 AND PURCH_MSG.CREATED_STAMP >= PURCH_ACTIVE.ACTIVE_STAMP ";
-      $sql .= "AND RESPONSE_STAMP is null AND ONSCREEN_STAMP is null AND CURATED_COMPLETE_STAMP is null";
+      $sql .= "AND RESPONSE_STAMP is null AND ONSCREEN_STAMP is null AND CURATED_COMPLETE_STAMP is null ";
+      $sql .= "ORDER BY CREATED_STAMP asc";
 
       $res = array();
       try {
