@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'common.php';
 
 class PurchMessage
@@ -6,35 +6,41 @@ class PurchMessage
     //Const?
     private $_config = '';
     private $_db;
-   
-    private $newFields = array("Name", "Message","PurchaseCount","PurchaseSummary","ImageURL");
+
+    private $_newFields = array("Name", "Message","PurchaseCount","PurchaseSummary","ImageURL");
 
     public function __construct()
     {
-      $this->_config  = load_config();  
-print_r($this->_config);
+      $this->_config = load_config();
+      print_r($this->_config);
+
       try {
         $this->_db = new PDO("mysql:host=".$this->_config['database']['hostname'].";dbname=".$this->_config['database']['dbame'], $this->_config['database']['username'], $this->_config['database']['password']);
-  
-      } catch (PDOException $pe) { 
-       print_r($pe);
+      } catch (Exception $pe) {
+        print_r($pe);
       }
+
     }
 
     public function addMessage($data)
     {
       //validate fields are correct
-      foreach ($this->newFields as $field)
+      foreach ($this->_newFields as $field)
       {
-        if ( !is_set($data[$field]) )
+        if ( !isset($data[$field]) )
         {
           return 0;
         }
       }
 
-      $sql = "INSERT INTO PURCH_MSG (NAME,MESSAGE,PURCHASE_COUNT,PURCHASE_SUMMARY,PURCHASE_IMAGE_URL) VALUES (:Name, :Message, :PurchaseSummary, :ImageURL)";
-      $stmt= $this->db->prepare($sql);
-      $stmt->execute($data);
+     $sql = "INSERT INTO PURCH_MSG (NAME,MESSAGE,PURCHASE_COUNT,PURCHASE_SUMMARY,PURCHASE_IMAGE_URL) VALUES (:Name, :Message, :PurchaseCount,:PurchaseSummary, :ImageURL)";
+     try {
+       $stmt= $this->_db->prepare($sql);
+       $stmt->execute($data);
+     } catch (Exception $e) {
+        print_r($e);
+      }
+
 
     }
 
@@ -43,7 +49,7 @@ print_r($this->_config);
     */
     public function replyRequired($startDate)
     {
-       
+
     }
 
     /*
