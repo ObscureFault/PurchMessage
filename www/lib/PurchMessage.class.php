@@ -4,19 +4,20 @@ include 'common.php';
 class PurchMessage
 {
     //Const?
-    private $config = '';
-
+    private $_config = '';
+    private $_db;
+   
     private $newFields = array("Name", "Message","PurchaseCount","PurchaseSummary","ImageURL");
 
     public function __construct()
     {
-      $config  = load_config();  
-print_r($config);
+      $this->_config  = load_config();  
+print_r($this->_config);
       try {
-        $this->db = new PDO("mysql:host=".$config['database']['hostname'].";dbname=".$config['database']['dbame'], $config['database']['username'], $config['database']['password']);
+        $this->_db = new PDO("mysql:host=".$this->_config['database']['hostname'].";dbname=".$this->_config['database']['dbame'], $this->_config['database']['username'], $this->_config['database']['password']);
   
       } catch (PDOException $pe) { 
-       
+       print_r($pe);
       }
     }
 

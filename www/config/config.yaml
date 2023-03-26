@@ -1,5 +1,5 @@
 database:
     hostname: purchdb
-    dbame: purchdb
+    dbame: purchmsg
     username: purch
     password: purch
