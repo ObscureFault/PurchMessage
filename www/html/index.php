@@ -40,6 +40,18 @@
   });
 
 
+  Flight::route('GET /ReplyRequired/', function()
+  {
+    $purch = new PurchMessage();
+    $res = $purch->ReplyRequired();
+    Flight::json($res);
+  });
+  
+
+
+
+
+
 
   Flight::route('POST /PurchActivate', function()
   {

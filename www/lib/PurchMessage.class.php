@@ -16,7 +16,6 @@ class PurchMessage
     public function __construct()
     {
       $this->_config = load_config();
-      print_r($this->_config);
 
       try {
         $this->_db = new PDO("mysql:host=".$this->_config['database']['hostname'].";dbname=".$this->_config['database']['dbame'], $this->_config['database']['username'], $this->_config['database']['password']);
@@ -44,7 +43,7 @@ class PurchMessage
       }
 
       $res = 0;
-      $sql = "INSERT INTO PURCH_MSG (NAME,MESSAGE,PURCHASE_COUNT,PURCHASE_SUMMARY,PURCHASE_IMAGE_URL) VALUES (:NAME, :MESSAGE, :PURCHASE_COUNT,:PURCHASE_COUNT, :ImageURL)";
+      $sql = "INSERT INTO PURCH_MSG (NAME,MESSAGE,PURCHASE_COUNT,PURCHASE_SUMMARY,PURCHASE_IMAGE_URL) VALUES (:NAME, :MESSAGE, :PURCHASE_COUNT,:PURCHASE_COUNT,:PURCHASE_IMAGE_URL)";
       try {
         $stmt = $this->_db->prepare($sql);
         $stmt->execute($data);
@@ -57,8 +56,7 @@ class PurchMessage
     }
 
     /*
-      New Message from Customer
-      Save to DB
+      Save Response to Message
     */
     public function updateResponse($id, $resonseText)
     {
