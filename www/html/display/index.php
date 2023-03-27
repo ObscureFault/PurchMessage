@@ -50,6 +50,7 @@
       element.fadeIn(fadeTime).delay(displayDelay).fadeOut(fadeTime, function(){
           element.remove();
           sendDisplayed(element.attr('_id'));
+          startCollect();
         });
     }
 
@@ -66,8 +67,7 @@
               $('body').append(box);
               fadeStart(box);
             });
-          }
-      });
+      };
     }
 
 
