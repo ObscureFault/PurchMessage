@@ -26,7 +26,7 @@
 
     var currentItem;
     var fadeTime = 1000;
-    var displayDelay = 5000;
+    var displayDelay = 4000;
 
     function sendDisplayed(id)
     {
@@ -39,8 +39,10 @@
     function fadeStart(element)
     {
       element.fadeIn(fadeTime).delay(displayDelay).fadeOut(fadeTime, function(){
+          element.hide();
           element.remove();
-          var box = createMSG(data,'response');
+          var box = createMSG(currentItem,'response');
+          $('body').append(box);
           fadeEnd(box);
         });
     }
@@ -62,12 +64,12 @@
         type: "GET",
         dataType: "json",
         success: function(data) {
-              currentItem = data;
-              var box = createMSG(data,'msg');
+              currentItem = data[0];
+             var box = createMSG(data[0],'msg');
               $('body').append(box);
               fadeStart(box);
-            });
-      };
+            }
+      });
     }
 
 
@@ -78,9 +80,10 @@
       var headingtext = '';
 
       var img_url = '/assets/ltt.jpg';
+console.log(item);
 
       if ( mode == 'msg')
-      {
+     {
         bodytext = item.MESSAGE;
         headingtext = 'Thanks, ' + item.NAME;
         img_url  = item.PURCHASE_IMAGE_URL;
@@ -97,7 +100,8 @@
         'background-color': '#f9f9f9',
         'border': '1px solid #ddd',
         'border-radius': '5px',
-        'padding': '10px'
+        'padding': '10px',
+        'display': 'none'
       });
 
       div.attr({'_id': item.PURCH_ID});
@@ -128,10 +132,10 @@
       div.append(message);
 
       return div;
-  });
+  }
 
   $(document).ready(function() {
-
+    startCollect();
 
 
 
@@ -141,10 +145,6 @@
 </script>
 </head>
 <body>
-
-<div id="set1" style="display:none">
-
-</div>
 
 </body>
 </html>
