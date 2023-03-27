@@ -61,8 +61,9 @@ Display Functions
 
   Flight::route('GET /PurchDisplayUpdate/@id', function($id)
   {
-    $purch = new PurchMessage();
-    $res = array(STATUS => $purch->updateDisplayed($id) );
+  //  $purch = new PurchMessage();
+//    $res = array(STATUS => $purch->updateDisplayed($id) );
+    $res = array(STATUS => 1 );
 
     Flight::json($res);
   });
